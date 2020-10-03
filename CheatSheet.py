@@ -714,6 +714,57 @@
 
 
 #################################################################################################
+# NETWORKING
+
+# Sockets
+
+    import socket
+    mySocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    mySocket.connect(('www.google.com',80))
+
+# Web Browser
+
+    import socket
+
+    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    mysock.connect(('www.w3.org', 80))
+    cmd = 'GET https://www.w3.org/TR/PNG/iso_8859-1.txt HTTP/1.0\r\n\r\n'.encode()
+    mysock.send(cmd)
+
+    while True:
+        data = mysock.recv(512)
+        if len(data) < 1:
+            break
+        print(data.decode(),end='')
+    mysock.close()
+
+# urllib
+
+    import urllib.request
+    document = urllib.request.urlopen('https://www.w3.org/TR/PNG/iso_8859-1.txt')
+    for line in document:
+        print(line.decode().strip(),end='')
+
+
+    import urllib.request
+    document = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+    counts = dict()
+    for line in document:
+        words = line.decode().split()
+        for word in words:
+            counts[word] = counts.get(word,0)+1
+    print(counts)
+
+
+    import urllib.request
+    document = urllib.request.urlopen('https://yt3.ggpht.com/-xVCh8cWEJjM/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclchs4EfN3wgK1duwkYkbk3fJKiOA/s88-c-k-c0x00ffffff-no-rj-mo/photo.jpg')
+    with open('00000001.jpg','wb') as f:
+        f.write(document.read())
+
+
+
+
+#################################################################################################
 # Threading
 
 
